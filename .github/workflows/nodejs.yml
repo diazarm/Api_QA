@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: B_USE  
 
     steps:
       - name: Clonar el repo
