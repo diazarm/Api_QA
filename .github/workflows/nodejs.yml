@@ -1,4 +1,4 @@
-name: CI para Node.js API
+name: Run API QA Tests
 
 on:
   push:
@@ -9,27 +9,41 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: B_USE  
+
+    # 🐘 Levantamos un contenedor con PostgreSQL
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: todo_api_qa
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
-      - name: Clonar el repo
-        uses: actions/checkout@v2
+      - name: 📥 Clonar el repositorio
+        uses: actions/checkout@v3
 
-      - name: Instalar Node
-        uses: actions/setup-node@v2
+      - name: 🧰 Instalar Node
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Instalar dependencias
+      - name: 📦 Instalar dependencias
         run: npm install
 
-      - name: Ejecutar pruebas
+      - name: 🧪 Ejecutar pruebas con Jest
         env:
-            DB_NAME: ${{ secrets.DB_NAME }}
-            DB_USER: ${{ secrets.DB_USER }}
-            DB_PASS: ${{ secrets.DB_PASS }}
-            DB_HOST: ${{ secrets.DB_HOST }}
-            DB_PORT: ${{ secrets.DB_PORT }}
-            DB_DIALECT: ${{ secrets.DB_DIALECT }}
+          DB_NAME: todo_api_qa
+          DB_USER: postgres
+          DB_PASS: postgres
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_DIALECT: postgres
         run: npm test
- 
