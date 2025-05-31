@@ -1,18 +1,15 @@
-import fs from 'fs';
-import path from 'path';
-import { Sequelize } from 'sequelize';
-import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const dotenv = require('dotenv');
 
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 
-// Config manual si ya no usas config.json
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -25,25 +22,28 @@ const sequelize = new Sequelize(
 
 const db = {};
 
-const files = fs
+fs
   .readdirSync(__dirname)
-  .filter(file => (
-    file !== basename && file.endsWith('.js') && !file.includes('.test.js')
-  ));
+  .filter(file => {
+    return (
+      file.indexOf('.') !== 0 &&
+      file !== basename &&
+      file.slice(-3) === '.js' &&
+      file.indexOf('.test.js') === -1
+    );
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
 
-for (const file of files) {
-  const modelModule = await import(`./${file}`);
-  const model = modelModule.default(sequelize, Sequelize.DataTypes);
-  db[model.name] = model;
-}
-
-for (const modelName of Object.keys(db)) {
+Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
-}
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export default db;
+module.exports = db;

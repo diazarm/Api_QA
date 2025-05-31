@@ -1,10 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import db from './models/index.js'; // ¡importá con la extensión!
+const express = require('express');
+const cors = require('cors');
+const db = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 // Middleware
 app.use(cors());
@@ -81,3 +80,5 @@ app.delete('/tasks/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+module.exports = app;

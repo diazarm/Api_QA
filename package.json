@@ -1,17 +1,17 @@
 {
   "name": "todoapiqa",
   "version": "1.0.0",
+  "description": "API CRUD para gestión de tareas con Express y Sequelize",
   "main": "app.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["express", "sequelize", "postgresql", "qa", "api"],
+  "author": "Marcelo A. Díaz",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -23,6 +23,11 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.6.3"
+    "jest": "^29.7.0",
+    "sequelize-cli": "^6.6.3",
+    "supertest": "^7.1.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
