@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../app'); // sin .js si usás CommonJS
+const db = require('../models');
 
 describe('GET /tasks', () => {
   it('should return an array of tasks', async () => {
@@ -33,4 +34,9 @@ describe('GET /tasks/:id', () => {
     const res = await request(app).get('/tasks/9999'); // ID que no existe
     expect(res.statusCode).toEqual(404);
   });
+});
+
+
+afterAll(async () => {
+  await db.sequelize.close();
 });
