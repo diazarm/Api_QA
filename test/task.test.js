@@ -1,6 +1,10 @@
 const request = require('supertest');
-const app = require('../app'); // sin .js si usás CommonJS
+const { app, init } = require('../app');
 const db = require('../models');
+
+
+beforeAll(async () => {
+  await init(); // ← Espera la conexión antes de correr los tests
 
 describe('GET /tasks', () => {
   it('should return an array of tasks', async () => {
@@ -45,7 +49,7 @@ describe('GET /tasks/:id', () => {
   }
 });
 
-
+});
 
 afterAll(async () => {
   await db.sequelize.close();
