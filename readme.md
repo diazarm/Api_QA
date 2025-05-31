@@ -1,42 +1,50 @@
-# Todo API QA
+# TodoApiQA
 
-Este proyecto es una API para la gestión de tareas (Todo API), desarrollada con el objetivo principal de aprender y practicar pruebas unitarias e integración utilizando **Jest** y **Supertest**.
+Este proyecto está enfocado en la **calidad de software (QA)** para una API de gestión de tareas (Todo API). Aquí se documentan los procesos, herramientas y buenas prácticas implementadas para asegurar la calidad del producto.
 
-## Características
+## Objetivo
 
-- API RESTful para operaciones CRUD de tareas.
-- Enfoque en la calidad del código mediante pruebas automatizadas.
-- Ejemplos claros de pruebas unitarias y de integración.
+Garantizar que la API cumpla con los requisitos funcionales y no funcionales, detectando errores y asegurando su correcto funcionamiento antes de su despliegue.
 
-## Tecnologías utilizadas
+## Estructura del Proyecto
 
-- Node.js
-- Express
-- Jest (pruebas unitarias)
-- Supertest (pruebas de integración)
+- `/tests`: Contiene los casos de prueba automatizados.
+- `/docs`: Documentación de endpoints, criterios de aceptación y reportes de pruebas.
+- `/reports`: Resultados de ejecuciones de pruebas.
 
-## Instalación
+## Herramientas Utilizadas
 
-```bash
-git clone https://github.com/diazarm/Api_QA
-cd todoApiQA
-npm install
-```
+- **Postman**: Para pruebas manuales y automatizadas de endpoints.
+- **Jest / Mocha**: Frameworks de testing para pruebas unitarias y de integración.
+- **Supertest**: Para pruebas de endpoints HTTP.
+- **Newman**: Ejecución de colecciones de Postman en CI/CD.
+- **Swagger**: Documentación y validación de la API.
 
-## Ejecución
+## Tipos de Pruebas Realizadas
 
-```bash
-npm start
-```
+- **Pruebas unitarias**: Validan funciones individuales.
+- **Pruebas de integración**: Verifican la interacción entre módulos.
+- **Pruebas end-to-end**: Simulan el flujo completo de usuario.
+- **Pruebas de regresión**: Aseguran que nuevas funcionalidades no rompan las existentes.
+- **Pruebas de carga**: Evalúan el rendimiento bajo diferentes volúmenes de uso.
 
-## Pruebas
+## Flujo de QA
 
-Ejecuta todas las pruebas con:
+1. **Diseño de casos de prueba** según los requisitos.
+2. **Automatización** de pruebas críticas.
+3. **Ejecución** en entornos de desarrollo y pre-producción.
+4. **Reporte y seguimiento** de bugs encontrados.
+5. **Validación** tras correcciones.
 
-```bash
-npm test
-```
+## Integración Continua
 
-## Objetivo de aprendizaje
+Las pruebas se ejecutan automáticamente en cada push mediante pipelines de CI/CD, asegurando feedback rápido y constante sobre la calidad del código.
 
-El foco de este proyecto es comprender cómo escribir y estructurar pruebas unitarias e integración en aplicaciones Node.js, asegurando la confiabilidad y mantenibilidad del código.
+## Contribuciones
+
+Para contribuir, seguir las guías de estilo y agregar pruebas para nuevas funcionalidades.
+
+---
+
+**Contacto:**  
+Para dudas o sugerencias, contactar al equipo de QA.
