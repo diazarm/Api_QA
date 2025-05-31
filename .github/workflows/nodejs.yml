@@ -1,0 +1,26 @@
+name: CI para Node.js API
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repo
+        uses: actions/checkout@v2
+
+      - name: Instalar Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar pruebas
+        run: npm test  
