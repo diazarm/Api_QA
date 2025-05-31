@@ -24,17 +24,27 @@ describe('POST /tasks', () => {
   });
 });
 describe('GET /tasks/:id', () => {
-  it('should return a task by ID', async () => {
+  try {it('should return a task by ID', async () => {
     const res = await request(app).get('/tasks/1'); // Asumiendo que la tarea con ID 1 existe
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('id');
   });
+    
+  } catch (error) {
+    console.error(error); // 👈 log detallado
+  res.status(500).json({ error: error.message });
+  }
 
-  it('should return 404 for non-existing task', async () => {
+   try {it('should return 404 for non-existing task', async () => {
     const res = await request(app).get('/tasks/9999'); // ID que no existe
     expect(res.statusCode).toEqual(404);
   });
+   } catch (error) {
+    console.error(error); // 👈 log detallado
+  res.status(500).json({ error: error.message });
+  }
 });
+
 
 
 afterAll(async () => {
