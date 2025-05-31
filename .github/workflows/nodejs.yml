@@ -10,7 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # 🐘 Levantamos un contenedor con PostgreSQL
     services:
       postgres:
         image: postgres:15
@@ -38,7 +37,8 @@ jobs:
       - name: 📦 Instalar dependencias
         run: npm install
 
-      - name: 🧪 Ejecutar pruebas con Jest
+      - name: 🛠️ Ejecutar migraciones
+        run: npx sequelize-cli db:migrate
         env:
           DB_NAME: todo_api_qa
           DB_USER: postgres
@@ -46,4 +46,13 @@ jobs:
           DB_HOST: localhost
           DB_PORT: 5432
           DB_DIALECT: postgres
+
+      - name: 🧪 Ejecutar pruebas con Jest
         run: npm test
+        env:
+          DB_NAME: todo_api_qa
+          DB_USER: postgres
+          DB_PASS: postgres
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_DIALECT: postgres
