@@ -28,6 +28,8 @@
     "supertest": "^7.1.1"
   },
   "jest": {
-    "testEnvironment": "node"
+    "globalSetup": "<rootDir>/test/setupDB.js",
+    "testEnvironment": "node",
+    "testMatch": ["<rootDir>/test/**/*.test.js"]
   }
 }
